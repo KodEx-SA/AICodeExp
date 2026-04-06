@@ -18,4 +18,11 @@ app.use(
 );
 
 // limiter
-const limiter = rateLimit()
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    message: "Too many request from the IP, please try again later"
+})
+app.use(limiter);
+
+app.use(express.json({limit : "10mb"}));
