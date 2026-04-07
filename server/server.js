@@ -26,3 +26,7 @@ const limiter = rateLimit({
 app.use(limiter);
 
 app.use(express.json({limit : "10mb"}));
+
+app.post("/api/explain-code", async (req, res) => {
+    
+})
