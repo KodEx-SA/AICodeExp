@@ -38,6 +38,9 @@ const client = new OpenAI ({
 app.post("/api/explain-code", async (req, res) => {
     try {
         const {code, language} = req.body;
+        if (!code) {
+            return res.status(400).json({error: "Code required!"});
+        }
     } catch (err) {
         console.error("Code Explain API Error:", err);
         res.status(500).json({error: "Server error", details: err.message});
