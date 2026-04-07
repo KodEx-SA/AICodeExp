@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
+import OpenAI from "openai";
 
 // instantiate app
 const app = express();
@@ -27,6 +28,18 @@ app.use(limiter);
 
 app.use(express.json({limit : "10mb"}));
 
+const API_KEY = process.env.NEBIUS_API_KEY;
+
+const client = new OpenAI ({
+    baseURL: 'https://api.studio.nebius.com/v1/',
+    apiKey: API_KEY,
+});
+
 app.post("/api/explain-code", async (req, res) => {
-    
-})
+    try {
+        const {code, language} = req.body;
+    } catch (err) {
+        console.error("Code Explain API Error:", err);
+        res.status(500).json({error: "Server error", details: err.message});
+    }
+});
